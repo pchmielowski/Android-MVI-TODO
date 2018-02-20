@@ -2,6 +2,7 @@ package net.chmielowski.mosbytest;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.widget.TextView;
 
 import com.hannesdorfmann.mosby3.mvi.MviActivity;
@@ -29,15 +30,38 @@ public class MainActivity extends MviActivity<MainView, MainPresenter> implement
         return factory.create();
     }
 
+    @NonNull
     @Override
-    public Observable<String> queryChanged() {
-        return RxTextView.textChanges(findViewById(R.id.query))
+    public Observable<NoValue> addNewClicked() {
+        return RxUtils.clicks(findViewById(R.id.add_new));
+    }
+
+    @NonNull
+    @Override
+    public Observable<String> textChanged() {
+        return RxTextView.textChanges(findViewById(R.id.new_list_name))
                 .map(CharSequence::toString);
+    }
+
+    @NonNull
+    @Override
+    public Observable<NoValue> confirmAddingClicked() {
+        return RxUtils.clicks(findViewById(R.id.confirm_adding));
     }
 
     @Override
     public void render(final MainViewState viewState) {
+        findViewById(R.id.new_list_name)
+                .setVisibility(toVisibility(viewState.enterNameVisible));
+        findViewById(R.id.add_new)
+                .setVisibility(toVisibility(viewState.addNewVisible));
         ((TextView) findViewById(R.id.result))
-                .setText(viewState.query);
+                .setText(viewState.allLists);
+        findViewById(R.id.confirm_adding)
+                .setVisibility(toVisibility(viewState.confirmVisible));
+    }
+
+    private int toVisibility(final boolean asBoolean) {
+        return asBoolean ? View.VISIBLE : View.GONE;
     }
 }

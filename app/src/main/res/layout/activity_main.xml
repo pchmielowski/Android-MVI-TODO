@@ -6,11 +6,23 @@
     android:orientation="vertical"
     tools:context="net.chmielowski.mosbytest.MainActivity">
 
-    <EditText
-        android:id="@+id/query"
+    <Button
+        android:id="@+id/add_new"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter query" />
+        android:text="Add new list" />
+
+    <EditText
+        android:id="@+id/new_list_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter new list name" />
+
+    <Button
+        android:id="@+id/confirm_adding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm" />
 
     <TextView
         android:id="@+id/result"

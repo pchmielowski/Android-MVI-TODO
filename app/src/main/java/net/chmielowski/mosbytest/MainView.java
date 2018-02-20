@@ -8,7 +8,13 @@ import io.reactivex.Observable;
 
 interface MainView extends MvpView {
     @NonNull
-    Observable<String> queryChanged();
+    Observable<NoValue> addNewClicked();
+
+    @NonNull
+    Observable<String> textChanged();
+
+    @NonNull
+    Observable<NoValue> confirmAddingClicked();
 
     void render(MainViewState viewState);
 }
