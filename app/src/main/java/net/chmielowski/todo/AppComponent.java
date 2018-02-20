@@ -1,4 +1,4 @@
-package net.chmielowski.mosbytest;
+package net.chmielowski.todo;
 
 import net.chmielowski.todo.main.MainActivity;
 

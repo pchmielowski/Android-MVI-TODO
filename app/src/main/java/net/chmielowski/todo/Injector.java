@@ -1,4 +1,4 @@
-package net.chmielowski.mosbytest;
+package net.chmielowski.todo;
 
 public enum Injector {
     INSTANCE;

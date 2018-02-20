@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.hannesdorfmann.mosby3.mvi.MviActivity;
 
-import net.chmielowski.mosbytest.Injector;
+import net.chmielowski.todo.Injector;
 import net.chmielowski.mosbytest.R;
 
 import javax.inject.Inject;
