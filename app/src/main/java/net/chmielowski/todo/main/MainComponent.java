@@ -3,6 +3,7 @@ package net.chmielowski.todo.main;
 import android.support.v7.app.AppCompatActivity;
 
 import net.chmielowski.todo.ActivityScope;
+import net.chmielowski.todo.list.ListFragment;
 
 import dagger.BindsInstance;
 import dagger.Subcomponent;
@@ -19,4 +20,6 @@ public interface MainComponent {
     }
 
     void inject(MainActivity activity);
+
+    void inject(ListFragment fragment);
 }
