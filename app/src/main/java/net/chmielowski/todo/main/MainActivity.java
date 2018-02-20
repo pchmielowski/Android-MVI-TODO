@@ -2,9 +2,6 @@ package net.chmielowski.todo.main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.hannesdorfmann.mosby3.mvi.MviActivity;
@@ -14,6 +11,9 @@ import net.chmielowski.todo.Injector;
 import javax.inject.Inject;
 
 public class MainActivity extends MviActivity<MainView, MainPresenter> implements MainView {
+
+    @Inject
+    ListsAdapter adapter;
 
     @Inject
     MainPresenterFactory presenterFactory;
@@ -35,7 +35,7 @@ public class MainActivity extends MviActivity<MainView, MainPresenter> implement
         setContentView(R.layout.activity_main);
 
         final ViewPager pager = findViewById(R.id.lists_pager);
-        pager.setAdapter(new ListsAdapter(getSupportFragmentManager()));
+        pager.setAdapter(adapter);
     }
 
     @NonNull
@@ -54,20 +54,4 @@ public class MainActivity extends MviActivity<MainView, MainPresenter> implement
         return renderer;
     }
 
-    private class ListsAdapter extends FragmentPagerAdapter {
-        ListsAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @NonNull
-        @Override
-        public Fragment getItem(final int position) {
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            return 0;
-        }
-    }
 }

@@ -1,10 +1,13 @@
 package net.chmielowski.todo.main;
 
-import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
+
+import net.chmielowski.todo.ActivityScope;
 
 import dagger.BindsInstance;
 import dagger.Subcomponent;
 
+@ActivityScope
 @Subcomponent(modules = MainModule.class)
 public interface MainComponent {
     @Subcomponent.Builder
@@ -12,7 +15,7 @@ public interface MainComponent {
         MainComponent build();
 
         @BindsInstance
-        Builder activity(Activity activity);
+        Builder activity(AppCompatActivity activity);
     }
 
     void inject(MainActivity activity);

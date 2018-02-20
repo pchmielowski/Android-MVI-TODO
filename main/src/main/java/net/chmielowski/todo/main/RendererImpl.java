@@ -1,16 +1,16 @@
 package net.chmielowski.todo.main;
 
-import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
 import javax.inject.Inject;
 
 class RendererImpl implements MainView.Renderer {
-    private Activity activity;
+    private AppCompatActivity activity;
 
     @Inject
-    RendererImpl(final Activity activity) {
+    RendererImpl(final AppCompatActivity activity) {
         this.activity = activity;
     }
 

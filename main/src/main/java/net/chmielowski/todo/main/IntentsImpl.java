@@ -2,6 +2,7 @@ package net.chmielowski.todo.main;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 
 import com.google.auto.factory.AutoFactory;
 import com.jakewharton.rxbinding2.widget.RxTextView;
@@ -11,10 +12,10 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 
 class IntentsImpl implements MainView.Intents {
-    private Activity activity;
+    private AppCompatActivity activity;
 
     @Inject
-    IntentsImpl(final Activity activity) {
+    IntentsImpl(final AppCompatActivity activity) {
         this.activity = activity;
     }
 
