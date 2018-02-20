@@ -15,7 +15,7 @@ import javax.inject.Inject;
 @ActivityScope
 class ListsAdapter extends FragmentPagerAdapter {
 
-    private List<MainViewState.TaskList> elements = new LinkedList<>();
+    private List<Long> elements = new LinkedList<>();
 
     private final ListFragmentFactory fragmentFactory;
 
@@ -28,7 +28,7 @@ class ListsAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(final int position) {
-        return fragmentFactory.create(elements.get(position).id);
+        return fragmentFactory.create(elements.get(position));
     }
 
     @Override
@@ -36,7 +36,7 @@ class ListsAdapter extends FragmentPagerAdapter {
         return elements.size();
     }
 
-    void bind(final List<MainViewState.TaskList> lists) {
+    void bind(final List<Long> lists) {
         this.elements = lists;
         notifyDataSetChanged();
     }

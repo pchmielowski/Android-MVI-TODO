@@ -44,10 +44,10 @@ public class ListFragment extends MviFragment<ListView, ListPresenter> implement
         return presenterFactory.create();
     }
 
-    public static Fragment newInstance(String id) {
+    public static Fragment newInstance(Long id) {
         final ListFragment fragment = new ListFragment();
         final Bundle args = new Bundle();
-        args.putString("TASK_LIST_ID", id);
+        args.putLong("TASK_LIST_ID", id);
         fragment.setArguments(args);
         return fragment;
     }

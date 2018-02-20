@@ -9,7 +9,7 @@ class MainViewState {
     final boolean confirmVisible;
     final boolean enterNameVisible;
 
-    final List<TaskList> lists = new ArrayList<>();
+    final List<Long> lists = new ArrayList<>();
 
     MainViewState(final String allLists, final boolean addNewVisible, final boolean confirmVisible, final boolean enterNameVisible) {
 
@@ -23,7 +23,4 @@ class MainViewState {
         return new MainViewState("", true, false, false);
     }
 
-    class TaskList {
-        String id;
-    }
 }
