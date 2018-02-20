@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.hannesdorfmann.mosby3.mvi.MviFragment;
 
 import net.chmielowski.todo.Injector;
+import net.chmielowski.todo.main.MainActivity;
 
 import javax.inject.Inject;
 
@@ -21,10 +22,7 @@ public class ListFragment extends MviFragment<ListView, ListPresenter> implement
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Injector.INSTANCE
-                .appComponent()
-                .plusMainComponent() // TODO: cache component in Injector
-                .activity((AppCompatActivity) getActivity())
-                .build()
+                .mainComponent((MainActivity) getActivity())
                 .inject(this);
     }
 

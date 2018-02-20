@@ -27,15 +27,18 @@ public class MainActivity extends MviActivity<MainView, MainPresenter> implement
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Injector.INSTANCE.appComponent()
-                .plusMainComponent()
-                .activity(this)
-                .build()
+        Injector.INSTANCE.mainComponent(this)
                 .inject(this);
         setContentView(R.layout.activity_main);
 
         final ViewPager pager = findViewById(R.id.lists_pager);
         pager.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Injector.INSTANCE.releaseMainComponent();
     }
 
     @NonNull
