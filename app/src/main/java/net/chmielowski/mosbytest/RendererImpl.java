@@ -3,6 +3,9 @@ package net.chmielowski.mosbytest;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.auto.factory.AutoFactory;
+
+@AutoFactory
 class RendererImpl implements MainView.Renderer {
     private MainActivity activity;
 

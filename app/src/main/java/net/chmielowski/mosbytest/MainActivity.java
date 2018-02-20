@@ -11,6 +11,10 @@ public class MainActivity extends MviActivity<MainView, MainPresenter> implement
 
     @Inject
     MainPresenterFactory presenterFactory;
+    @Inject
+    RendererImplFactory renderer;
+    @Inject
+    IntentsImplFactory intents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +31,13 @@ public class MainActivity extends MviActivity<MainView, MainPresenter> implement
 
     @Override
     public Intents intents() {
-        return new IntentsImpl(this);
+        return intents.create(this);
     }
+
 
     @Override
     public Renderer renderer() {
-        return new RendererImpl(this);
+        return renderer.create(this);
     }
 
 }
