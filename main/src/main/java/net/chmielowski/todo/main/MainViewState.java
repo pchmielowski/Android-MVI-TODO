@@ -1,10 +1,15 @@
 package net.chmielowski.todo.main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class MainViewState {
     final String allLists;
     final boolean addNewVisible;
     final boolean confirmVisible;
     final boolean enterNameVisible;
+
+    final List<TaskList> lists = new ArrayList<>();
 
     MainViewState(final String allLists, final boolean addNewVisible, final boolean confirmVisible, final boolean enterNameVisible) {
 
@@ -16,5 +21,9 @@ class MainViewState {
 
     static MainViewState initial() {
         return new MainViewState("", true, false, false);
+    }
+
+    class TaskList {
+        String name;
     }
 }

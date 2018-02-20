@@ -7,11 +7,14 @@ import android.widget.TextView;
 import javax.inject.Inject;
 
 class RendererImpl implements MainView.Renderer {
-    private AppCompatActivity activity;
+    private final AppCompatActivity activity;
+    private final ListsAdapter adapter;
 
     @Inject
-    RendererImpl(final AppCompatActivity activity) {
+    RendererImpl(final AppCompatActivity activity,
+                 final ListsAdapter adapter) {
         this.activity = activity;
+        this.adapter = adapter;
     }
 
     @Override
@@ -24,6 +27,8 @@ class RendererImpl implements MainView.Renderer {
                 .setText(viewState.allLists);
         activity.findViewById(R.id.confirm_adding)
                 .setVisibility(toVisibility(viewState.confirmVisible));
+
+        adapter.bind(viewState.lists);
     }
 
     private int toVisibility(final boolean asBoolean) {
