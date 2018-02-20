@@ -4,17 +4,12 @@ import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
 import com.hannesdorfmann.mosby3.mvi.MviBasePresenter;
 
-import java.util.Collection;
-import java.util.LinkedList;
+import net.chmielowski.todo.data.Persistence;
+
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import io.reactivex.Observable;
-import io.reactivex.subjects.PublishSubject;
-import io.reactivex.subjects.Subject;
 
 @AutoFactory
 public final class MainPresenter extends MviBasePresenter<MainView, MainViewState> {
@@ -45,22 +40,3 @@ public final class MainPresenter extends MviBasePresenter<MainView, MainViewStat
     }
 }
 
-@Singleton
-class Persistence {
-
-    @Inject
-    Persistence() {
-    }
-
-    private LinkedList<String> lists = new LinkedList<>();
-    private Subject<Collection<String>> subject = PublishSubject.create();
-
-    void addList(final String name) {
-        lists.add(name);
-        subject.onNext(lists);
-    }
-
-    Observable<Collection<String>> observe() {
-        return subject;
-    }
-}

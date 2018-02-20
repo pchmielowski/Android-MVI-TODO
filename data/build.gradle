@@ -1,9 +1,8 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "net.chmielowski.mosbytest"
         minSdkVersion 26
         targetSdkVersion 27
         versionCode 1
@@ -48,6 +47,4 @@ dependencies {
 
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
     implementation 'com.hannesdorfmann.mosby3:mvi:3.1.0'
-
-    implementation project(path: ':main')
 }
