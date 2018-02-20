@@ -1,6 +1,6 @@
 package net.chmielowski.mosbytest;
 
-import net.chmielowski.lib.MainActivity;
+import net.chmielowski.todo.main.MainActivity;
 
 import javax.inject.Singleton;
 
