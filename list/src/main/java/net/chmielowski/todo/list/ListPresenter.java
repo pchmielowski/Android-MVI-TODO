@@ -3,21 +3,23 @@ package net.chmielowski.todo.list;
 import com.google.auto.factory.AutoFactory;
 import com.hannesdorfmann.mosby3.mvi.MviBasePresenter;
 
-import io.reactivex.Observable;
+import net.chmielowski.todo.data.Persistence;
 
 @AutoFactory
 class ListPresenter extends MviBasePresenter<ListView, ListViewState> {
 
-    private final String name;
+    private final long id;
+    private final Persistence persistence;
 
-    ListPresenter(final long id) {
-        name = "#" + id;
+    ListPresenter(final long id, final Persistence persistence) {
+        this.id = id;
+        this.persistence = persistence;
     }
 
     @Override
     protected void bindIntents() {
-        final ListViewState state = new ListViewState();
-        state.name = name;
-        subscribeViewState(Observable.just(state), ListView::render);
+        subscribeViewState(
+                persistence.getList(id).map(ListViewState::new),
+                ListView::render);
     }
 }

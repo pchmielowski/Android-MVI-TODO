@@ -1,5 +1,11 @@
 package net.chmielowski.todo.list;
 
+import net.chmielowski.todo.data.TaskList;
+
 class ListViewState {
-    String name;
+    final String name;
+
+    ListViewState(final TaskList taskList) {
+        name = taskList.name;
+    }
 }

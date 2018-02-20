@@ -1,10 +1,7 @@
 package net.chmielowski.todo.data;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -36,5 +33,9 @@ public class Persistence {
 
     public Observable<Collection<Long>> observe() {
         return Observable.just(lists);
+    }
+
+    public Observable<TaskList> getList(final long id) {
+        return Observable.just(new TaskList("#" + id));
     }
 }
