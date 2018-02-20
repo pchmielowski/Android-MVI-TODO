@@ -1,5 +1,6 @@
-package net.chmielowski.mosbytest;
+package net.chmielowski.lib;
 
+import android.app.Activity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -7,9 +8,9 @@ import com.google.auto.factory.AutoFactory;
 
 @AutoFactory
 class RendererImpl implements MainView.Renderer {
-    private MainActivity activity;
+    private Activity activity;
 
-    RendererImpl(final MainActivity activity) {
+    RendererImpl(final Activity activity) {
         this.activity = activity;
     }
 

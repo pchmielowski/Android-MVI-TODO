@@ -1,4 +1,4 @@
-package net.chmielowski.mosbytest;
+package net.chmielowski.lib;
 
 import android.support.annotation.NonNull;
 
@@ -6,7 +6,7 @@ import com.hannesdorfmann.mosby3.mvp.MvpView;
 
 import io.reactivex.Observable;
 
-interface MainView extends MvpView {
+public interface MainView extends MvpView {
     interface Intents {
         @NonNull
         Observable<NoValue> addNewClicked();

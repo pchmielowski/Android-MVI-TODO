@@ -1,6 +1,6 @@
 package net.chmielowski.mosbytest;
 
-enum Injector {
+public enum Injector {
     INSTANCE;
     private AppComponent appComponent;
 
@@ -8,7 +8,7 @@ enum Injector {
         this.appComponent = component;
     }
 
-    AppComponent appComponent() {
+    public AppComponent appComponent() {
         return appComponent;
     }
 }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="net.chmielowski.mosbytest.MainActivity">
+    tools:context="net.chmielowski.lib.MainActivity">
 
     <Button
         android:id="@+id/add_new"

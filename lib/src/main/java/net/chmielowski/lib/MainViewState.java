@@ -1,4 +1,4 @@
-package net.chmielowski.mosbytest;
+package net.chmielowski.lib;
 
 class MainViewState {
     final String allLists;

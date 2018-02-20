@@ -1,4 +1,4 @@
-package net.chmielowski.mosbytest;
+package net.chmielowski.lib;
 
 import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
@@ -17,7 +17,7 @@ import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
 @AutoFactory
-final class MainPresenter extends MviBasePresenter<MainView, MainViewState> {
+public final class MainPresenter extends MviBasePresenter<MainView, MainViewState> {
     private final Persistence persistence;
 
     MainPresenter(@Provided Persistence persistence) {

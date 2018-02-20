@@ -1,6 +1,8 @@
-package net.chmielowski.mosbytest;
+package net.chmielowski.lib;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 
 import com.google.auto.factory.AutoFactory;
 import com.jakewharton.rxbinding2.widget.RxTextView;
@@ -9,9 +11,9 @@ import io.reactivex.Observable;
 
 @AutoFactory
 class IntentsImpl implements MainView.Intents {
-    private MainActivity activity;
+    private Activity activity;
 
-    IntentsImpl(final MainActivity activity) {
+    IntentsImpl(final Activity activity) {
         this.activity = activity;
     }
 
