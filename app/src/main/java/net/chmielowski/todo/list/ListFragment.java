@@ -2,8 +2,12 @@ package net.chmielowski.todo.list;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.hannesdorfmann.mosby3.mvi.MviFragment;
 
@@ -26,6 +30,14 @@ public class ListFragment extends MviFragment<ListView, ListPresenter> implement
                 .inject(this);
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull final LayoutInflater inflater,
+                             @Nullable final ViewGroup container,
+                             @Nullable final Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_list, container, false);
+    }
+
     @NonNull
     @Override
     public ListPresenter createPresenter() {
@@ -38,5 +50,11 @@ public class ListFragment extends MviFragment<ListView, ListPresenter> implement
         args.putString("TASK_LIST_ID", id);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void render(final ListViewState viewState) {
+        ((TextView) getView().findViewById(R.id.list_name))
+                .setText(viewState.name);
     }
 }

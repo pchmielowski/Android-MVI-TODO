@@ -7,13 +7,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import net.chmielowski.todo.ActivityScope;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 @ActivityScope
 class ListsAdapter extends FragmentPagerAdapter {
-    private List<MainViewState.TaskList> elements;
+
+    private List<MainViewState.TaskList> elements = new LinkedList<>();
 
     private final ListFragmentFactory fragmentFactory;
 
@@ -26,8 +28,7 @@ class ListsAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(final int position) {
-        final MainViewState.TaskList element = elements.get(position);
-        return fragmentFactory.create(element.id);
+        return fragmentFactory.create(elements.get(position).id);
     }
 
     @Override
