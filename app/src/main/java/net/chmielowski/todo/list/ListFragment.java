@@ -19,15 +19,16 @@ import javax.inject.Inject;
 
 public class ListFragment extends MviFragment<ListView, ListPresenter> implements ListView {
 
+    public static final String TASK_LIST_ID = "TASK_LIST_ID";
     @Inject
     ListPresenterFactory presenterFactory;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         Injector.INSTANCE
                 .mainComponent((MainActivity) getActivity())
                 .inject(this);
+        super.onCreate(savedInstanceState);
     }
 
     @Nullable
@@ -41,13 +42,13 @@ public class ListFragment extends MviFragment<ListView, ListPresenter> implement
     @NonNull
     @Override
     public ListPresenter createPresenter() {
-        return presenterFactory.create();
+        return presenterFactory.create(getArguments().getLong(TASK_LIST_ID));
     }
 
     public static Fragment newInstance(Long id) {
         final ListFragment fragment = new ListFragment();
         final Bundle args = new Bundle();
-        args.putLong("TASK_LIST_ID", id);
+        args.putLong(TASK_LIST_ID, id);
         fragment.setArguments(args);
         return fragment;
     }

@@ -6,6 +6,7 @@ import com.hannesdorfmann.mosby3.mvi.MviBasePresenter;
 
 import net.chmielowski.todo.data.Persistence;
 
+import java.util.Collections;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -30,10 +31,9 @@ public final class MainPresenter extends MviBasePresenter<MainView, MainViewStat
                 .subscribe(persistence::addList);
 
         final Observable<MainViewState> map = intent(MainView.Intents::addNewClicked)
-                .map(__ -> new MainViewState("", false, true, true));
+                .map(__ -> new MainViewState(Collections.emptyList(), false, true, true));
 
         final Observable<MainViewState> intent = persistence.observe()
-                .map(strings -> strings.stream().collect(Collectors.joining(", ")))
                 .map(allLists -> new MainViewState(allLists, true, false, false))
                 .startWith(MainViewState.initial());
         subscribeViewState(Observable.merge(map, intent), (view, viewState) -> view.renderer().render(viewState));

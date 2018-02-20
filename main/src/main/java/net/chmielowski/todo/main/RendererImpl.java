@@ -23,11 +23,8 @@ class RendererImpl implements MainView.Renderer {
                 .setVisibility(toVisibility(viewState.enterNameVisible));
         activity.findViewById(R.id.add_new)
                 .setVisibility(toVisibility(viewState.addNewVisible));
-        ((TextView) activity.findViewById(R.id.result))
-                .setText(viewState.allLists);
         activity.findViewById(R.id.confirm_adding)
                 .setVisibility(toVisibility(viewState.confirmVisible));
-
         adapter.bind(viewState.lists);
     }
 
