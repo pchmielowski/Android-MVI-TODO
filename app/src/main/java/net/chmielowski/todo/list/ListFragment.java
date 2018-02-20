@@ -3,7 +3,6 @@ package net.chmielowski.todo.list;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +11,33 @@ import android.widget.TextView;
 import com.hannesdorfmann.mosby3.mvi.MviFragment;
 
 import net.chmielowski.todo.Injector;
+import net.chmielowski.todo.main.ListFragmentFactory;
 import net.chmielowski.todo.main.MainActivity;
 
 import javax.inject.Inject;
+
+import dagger.Module;
+import dagger.Provides;
 
 
 public class ListFragment extends MviFragment<ListView, ListPresenter> implements ListView {
 
     public static final String TASK_LIST_ID = "TASK_LIST_ID";
+
+    @Module
+    public abstract static class FactoryModule {
+        @Provides
+        static ListFragmentFactory provideFactory() {
+            return id -> {
+                final ListFragment fragment = new ListFragment();
+                final Bundle args = new Bundle();
+                args.putLong(TASK_LIST_ID, id);
+                fragment.setArguments(args);
+                return fragment;
+            };
+        }
+    }
+
     @Inject
     ListPresenterFactory presenterFactory;
 
@@ -43,14 +61,6 @@ public class ListFragment extends MviFragment<ListView, ListPresenter> implement
     @Override
     public ListPresenter createPresenter() {
         return presenterFactory.create(getArguments().getLong(TASK_LIST_ID));
-    }
-
-    public static Fragment newInstance(Long id) {
-        final ListFragment fragment = new ListFragment();
-        final Bundle args = new Bundle();
-        args.putLong(TASK_LIST_ID, id);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
