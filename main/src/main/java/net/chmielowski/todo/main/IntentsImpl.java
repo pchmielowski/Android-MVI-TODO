@@ -6,12 +6,14 @@ import android.support.annotation.NonNull;
 import com.google.auto.factory.AutoFactory;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 
-@AutoFactory
 class IntentsImpl implements MainView.Intents {
     private Activity activity;
 
+    @Inject
     IntentsImpl(final Activity activity) {
         this.activity = activity;
     }

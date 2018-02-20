@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.auto.factory.AutoFactory;
+import javax.inject.Inject;
 
-@AutoFactory
 class RendererImpl implements MainView.Renderer {
     private Activity activity;
 
+    @Inject
     RendererImpl(final Activity activity) {
         this.activity = activity;
     }

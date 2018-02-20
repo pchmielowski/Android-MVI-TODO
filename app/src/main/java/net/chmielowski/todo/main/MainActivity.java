@@ -2,6 +2,10 @@ package net.chmielowski.todo.main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 
 import com.hannesdorfmann.mosby3.mvi.MviActivity;
 
@@ -15,16 +19,23 @@ public class MainActivity extends MviActivity<MainView, MainPresenter> implement
     MainPresenterFactory presenterFactory;
 
     @Inject
-    RendererImplFactory renderer;
+    Renderer renderer;
 
     @Inject
-    IntentsImplFactory intents;
+    Intents intents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Injector.INSTANCE.appComponent().inject(this);
+        Injector.INSTANCE.appComponent()
+                .plusMainComponent()
+                .activity(this)
+                .build()
+                .inject(this);
         setContentView(R.layout.activity_main);
+
+        final ViewPager pager = findViewById(R.id.lists_pager);
+        pager.setAdapter(new ListsAdapter(getSupportFragmentManager()));
     }
 
     @NonNull
@@ -35,11 +46,28 @@ public class MainActivity extends MviActivity<MainView, MainPresenter> implement
 
     @Override
     public Intents intents() {
-        return intents.create(this);
+        return intents;
     }
 
     @Override
     public Renderer renderer() {
-        return renderer.create(this);
+        return renderer;
+    }
+
+    private class ListsAdapter extends FragmentPagerAdapter {
+        ListsAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @NonNull
+        @Override
+        public Fragment getItem(final int position) {
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 0;
+        }
     }
 }
