@@ -6,6 +6,7 @@ import com.hannesdorfmann.mosby3.mvi.MviBasePresenter;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -23,20 +24,24 @@ final class MainPresenter extends MviBasePresenter<MainView, MainViewState> {
         this.persistence = persistence;
     }
 
+    private <I> Observable<I> intent(final Function<MainView.Intents, Observable<I>> function) {
+        return super.intent(view -> function.apply(view.intents()));
+    }
+
     @Override
     protected void bindIntents() {
-        intent(MainView::confirmAddingClicked)
-                .withLatestFrom(intent(MainView::textChanged), (noValue, s) -> s)
+        intent(MainView.Intents::textChanged)
+                .withLatestFrom(intent(MainView.Intents::textChanged), (noValue, s) -> s)
                 .subscribe(persistence::addList);
 
-        final Observable<MainViewState> map = intent(MainView::addNewClicked)
+        final Observable<MainViewState> map = intent(MainView.Intents::addNewClicked)
                 .map(__ -> new MainViewState("", false, true, true));
 
         final Observable<MainViewState> intent = persistence.observe()
                 .map(strings -> strings.stream().collect(Collectors.joining(", ")))
                 .map(allLists -> new MainViewState(allLists, true, false, false))
                 .startWith(MainViewState.initial());
-        subscribeViewState(Observable.merge(map, intent), MainView::render);
+        subscribeViewState(Observable.merge(map, intent), (view, viewState) -> view.renderer().render(viewState));
     }
 }
 
