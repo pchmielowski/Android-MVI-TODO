@@ -15,17 +15,19 @@ import javax.inject.Inject;
 class ListsAdapter extends FragmentPagerAdapter {
     private List<MainViewState.TaskList> elements;
 
+    private final ListFragmentFactory fragmentFactory;
+
     @Inject
-    ListsAdapter(FragmentManager manager) {
+    ListsAdapter(FragmentManager manager, final ListFragmentFactory factory) {
         super(manager);
+        this.fragmentFactory = factory;
     }
 
     @NonNull
     @Override
     public Fragment getItem(final int position) {
         final MainViewState.TaskList element = elements.get(position);
-        // TODO: create Fragment
-        return null;
+        return fragmentFactory.create(element.id);
     }
 
     @Override

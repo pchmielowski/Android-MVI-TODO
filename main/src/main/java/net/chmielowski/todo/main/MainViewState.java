@@ -24,6 +24,6 @@ class MainViewState {
     }
 
     class TaskList {
-        String name;
+        String id;
     }
 }

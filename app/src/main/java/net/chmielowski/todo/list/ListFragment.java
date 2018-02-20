@@ -2,6 +2,7 @@ package net.chmielowski.todo.list;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import com.hannesdorfmann.mosby3.mvi.MviFragment;
@@ -31,5 +32,13 @@ public class ListFragment extends MviFragment<ListView, ListPresenter> implement
     @Override
     public ListPresenter createPresenter() {
         return presenterFactory.create();
+    }
+
+    public static Fragment newInstance(String id) {
+        final ListFragment fragment = new ListFragment();
+        final Bundle args = new Bundle();
+        args.putString("TASK_LIST_ID", id);
+        fragment.setArguments(args);
+        return fragment;
     }
 }
