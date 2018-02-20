@@ -14,8 +14,10 @@ public class MainActivity extends MviActivity<MainView, MainPresenter> implement
 
     @Inject
     MainPresenterFactory presenterFactory;
+
     @Inject
     RendererImplFactory renderer;
+
     @Inject
     IntentsImplFactory intents;
 
@@ -37,10 +39,8 @@ public class MainActivity extends MviActivity<MainView, MainPresenter> implement
         return intents.create(this);
     }
 
-
     @Override
     public Renderer renderer() {
         return renderer.create(this);
     }
-
 }
