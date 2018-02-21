@@ -3,6 +3,7 @@ package net.chmielowski.todo.list;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,9 @@ abstract class AbstractListFragment extends MviFragment<ListView, ListPresenter>
 
     @Inject
     ListPresenterFactory presenterFactory;
+
+    @Inject
+    TasksAdapter adapter;
 
     @Nullable
     @Override
@@ -37,7 +41,21 @@ abstract class AbstractListFragment extends MviFragment<ListView, ListPresenter>
     @SuppressWarnings("ConstantConditions")
     @Override
     public void render(final ListViewState viewState) {
-        ((TextView) getView().findViewById(R.id.list_name))
-                .setText(viewState.name);
+        adapter.replace(viewState.list.tasks);
+        ((TextView) cachingFindView(R.id.list_name))
+                .setText(viewState.list.name);
     }
+
+    final SparseArray<View> cache = new SparseArray<>();
+
+    private <T extends View> T cachingFindView(final int id) {
+        final T cached = (T) cache.get(id);
+        if (cached != null) {
+            return cached;
+        }
+        final T found = getView().findViewById(id);
+        cache.put(id, found);
+        return found;
+    }
+
 }
