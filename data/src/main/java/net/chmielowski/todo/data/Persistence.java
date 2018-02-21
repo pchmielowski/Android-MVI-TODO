@@ -11,7 +11,7 @@ import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
 @Singleton
-public class Persistence {
+class Persistence implements IPersistence {
 
     @Inject
     Persistence() {
@@ -26,15 +26,18 @@ public class Persistence {
     private LinkedList<Long> lists;
     private Subject<Collection<Long>> subject = PublishSubject.create();
 
+    @Override
     public void addList(final String name) {
 //        lists.add(name);
 //        subject.onNext(lists);
     }
 
+    @Override
     public Observable<Collection<Long>> observe() {
         return Observable.just(lists);
     }
 
+    @Override
     public Observable<TaskList> getList(final long id) {
         return Observable.just(new TaskList("#" + id));
     }

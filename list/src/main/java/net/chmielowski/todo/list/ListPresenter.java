@@ -4,15 +4,15 @@ import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
 import com.hannesdorfmann.mosby3.mvi.MviBasePresenter;
 
-import net.chmielowski.todo.data.Persistence;
+import net.chmielowski.todo.data.IPersistence;
 
 @AutoFactory
 class ListPresenter extends MviBasePresenter<ListView, ListViewState> {
 
     private final long id;
-    private final Persistence persistence;
+    private final IPersistence persistence;
 
-    ListPresenter(@Provided final Persistence persistence, final long id) {
+    ListPresenter(@Provided final IPersistence persistence, final long id) {
         this.id = id;
         this.persistence = persistence;
     }

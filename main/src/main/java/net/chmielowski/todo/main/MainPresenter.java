@@ -4,20 +4,16 @@ import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
 import com.hannesdorfmann.mosby3.mvi.MviBasePresenter;
 
-import net.chmielowski.todo.data.Persistence;
-
-import java.util.Collections;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import io.reactivex.Observable;
 
 @AutoFactory
 public final class MainPresenter extends MviBasePresenter<MainView, MainViewState> {
-    private final Persistence persistence;
+    private final Delegate delegate;
 
-    MainPresenter(@Provided Persistence persistence) {
-        this.persistence = persistence;
+    MainPresenter(@Provided Delegate delegate) {
+        this.delegate = delegate;
     }
 
     private <I> Observable<I> intent(final Function<MainView.Intents, Observable<I>> function) {
@@ -26,17 +22,10 @@ public final class MainPresenter extends MviBasePresenter<MainView, MainViewStat
 
     @Override
     protected void bindIntents() {
-        intent(MainView.Intents::textChanged)
-                .withLatestFrom(intent(MainView.Intents::textChanged), (noValue, s) -> s)
-                .subscribe(persistence::addList);
+        final Observable<MainViewState> merge = delegate.createStream(intent(MainView.Intents::textChanged), intent(MainView.Intents::addNewClicked), this.intent(MainView.Intents::textChanged));
 
-        final Observable<MainViewState> map = intent(MainView.Intents::addNewClicked)
-                .map(__ -> new MainViewState(Collections.emptyList(), false, true, true));
-
-        final Observable<MainViewState> intent = persistence.observe()
-                .map(allLists -> new MainViewState(allLists, true, false, false))
-                .startWith(MainViewState.initial());
-        subscribeViewState(Observable.merge(map, intent), (view, viewState) -> view.renderer().render(viewState));
+        subscribeViewState(merge, (view, viewState) -> view.renderer().render(viewState));
     }
+
 }
 
