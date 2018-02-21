@@ -30,8 +30,8 @@ final class MainPresenter extends MviBasePresenterHelper<MainView, MainViewState
     }
 
     @Override
-    protected void render(final MainView view, final MainViewState viewState) {
-        view.renderer().render(viewState);
+    protected ViewStateConsumer<MainView, MainViewState> renderer() {
+        return (view, viewState) -> view.renderer().render(viewState);
     }
 
 }

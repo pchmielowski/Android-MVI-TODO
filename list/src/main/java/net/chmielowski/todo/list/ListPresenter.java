@@ -1,13 +1,17 @@
 package net.chmielowski.todo.list;
 
+import android.support.annotation.NonNull;
+
 import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
-import com.hannesdorfmann.mosby3.mvi.MviBasePresenter;
 
+import net.chmielowski.todo.MviBasePresenterHelper;
 import net.chmielowski.todo.data.IPersistence;
 
+import io.reactivex.Observable;
+
 @AutoFactory
-class ListPresenter extends MviBasePresenter<ListView, ListViewState> {
+class ListPresenter extends MviBasePresenterHelper<ListView, ListViewState> {
 
     private final long id;
     private final IPersistence persistence;
@@ -17,10 +21,14 @@ class ListPresenter extends MviBasePresenter<ListView, ListViewState> {
         this.persistence = persistence;
     }
 
+    @NonNull
     @Override
-    protected void bindIntents() {
-        subscribeViewState(
-                persistence.getList(id).map(ListViewState::new),
-                ListView::render);
+    protected Observable<ListViewState> intentStream() {
+        return persistence.getList(id).map(ListViewState::new);
+    }
+
+    @Override
+    protected ViewStateConsumer<ListView, ListViewState> renderer() {
+        return ListView::render;
     }
 }

@@ -10,10 +10,10 @@ import io.reactivex.Observable;
 public abstract class MviBasePresenterHelper<V extends MvpView, VS> extends MviBasePresenter<V, VS> {
     @Override
     final protected void bindIntents() {
-        subscribeViewState(intentStream(), this::render);
+        subscribeViewState(intentStream(), renderer());
     }
 
-    protected abstract void render(final V view, final VS viewState);
+    protected abstract ViewStateConsumer<V, VS> renderer();
 
     @NonNull
     protected abstract Observable<VS> intentStream();
