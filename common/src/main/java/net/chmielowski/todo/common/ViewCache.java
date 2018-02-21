@@ -5,8 +5,10 @@ import android.view.View;
 
 import com.google.auto.factory.AutoFactory;
 
+
+// TODO: use data binding instead of this whole class
 @AutoFactory
-public class ViewCache {
+public final class ViewCache {
     private final SparseArray<View> cache = new SparseArray<>();
     private final View root;
 
@@ -15,7 +17,7 @@ public class ViewCache {
     }
 
     public <T extends View> T findViewById(final int id) {
-        final T cached = (T) cache.get(id);
+        @SuppressWarnings("unchecked") final T cached = (T) cache.get(id);
         if (cached != null) {
             return cached;
         }
