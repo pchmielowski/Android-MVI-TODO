@@ -12,7 +12,8 @@ class MainViewState {
 
     final List<Long> lists;
 
-    MainViewState(final Collection<Long> allLists, final boolean addNewVisible, final boolean confirmVisible, final boolean enterNameVisible) {
+    MainViewState(final Collection<Long> allLists, final boolean addNewVisible,
+                  final boolean confirmVisible, final boolean enterNameVisible) {
         this.lists = new ArrayList<>(allLists);
         this.addNewVisible = addNewVisible;
         this.confirmVisible = confirmVisible;

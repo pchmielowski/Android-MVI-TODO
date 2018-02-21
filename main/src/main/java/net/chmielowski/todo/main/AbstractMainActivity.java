@@ -8,7 +8,8 @@ import com.hannesdorfmann.mosby3.mvi.MviActivity;
 
 import javax.inject.Inject;
 
-abstract class AbstractMainActivity extends MviActivity<MainView, MainPresenter> implements MainView {
+abstract class AbstractMainActivity extends MviActivity<MainView, MainPresenter>
+        implements MainView {
 
     @Inject
     ListsAdapter adapter;
@@ -23,7 +24,7 @@ abstract class AbstractMainActivity extends MviActivity<MainView, MainPresenter>
     Intents intents;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

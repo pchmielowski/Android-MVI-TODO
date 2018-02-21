@@ -12,7 +12,8 @@ import com.hannesdorfmann.mosby3.mvi.MviFragment;
 
 import javax.inject.Inject;
 
-abstract class AbstractListFragment extends MviFragment<ListView, ListPresenter> implements ListView {
+abstract class AbstractListFragment extends MviFragment<ListView, ListPresenter>
+        implements ListView {
     static final String TASK_LIST_ID = "TASK_LIST_ID";
 
     @Inject
@@ -26,12 +27,14 @@ abstract class AbstractListFragment extends MviFragment<ListView, ListPresenter>
         return inflater.inflate(R.layout.fragment_list, container, false);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @NonNull
     @Override
     public ListPresenter createPresenter() {
         return presenterFactory.create(getArguments().getLong(TASK_LIST_ID));
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void render(final ListViewState viewState) {
         ((TextView) getView().findViewById(R.id.list_name))

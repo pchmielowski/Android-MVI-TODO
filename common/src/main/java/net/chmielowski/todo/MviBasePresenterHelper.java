@@ -7,9 +7,10 @@ import com.hannesdorfmann.mosby3.mvp.MvpView;
 
 import io.reactivex.Observable;
 
-public abstract class MviBasePresenterHelper<V extends MvpView, VS> extends MviBasePresenter<V, VS> {
+public abstract class MviBasePresenterHelper<V extends MvpView, VS>
+        extends MviBasePresenter<V, VS> {
     @Override
-    final protected void bindIntents() {
+    protected final void bindIntents() {
         subscribeViewState(intentStream(), renderer());
     }
 

@@ -17,7 +17,9 @@ class Delegate {
         this.persistence = persistence;
     }
 
-    Observable<MainViewState> createStream(Observable<String> intent1, Observable<NoValue> intent2, Observable<String> intent3) {
+    Observable<MainViewState> createStream(final Observable<String> intent1,
+                                           final Observable<NoValue> intent2,
+                                           final Observable<String> intent3) {
         intent1.withLatestFrom(intent3, (noValue, s) -> s)
                 .subscribe(this.persistence::addList);
 
