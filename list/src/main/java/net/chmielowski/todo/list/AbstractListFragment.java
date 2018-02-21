@@ -3,13 +3,15 @@ package net.chmielowski.todo.list;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hannesdorfmann.mosby3.mvi.MviFragment;
+
+import net.chmielowski.todo.common.ViewCache;
+import net.chmielowski.todo.common.ViewCacheFactory;
 
 import javax.inject.Inject;
 
@@ -23,12 +25,22 @@ abstract class AbstractListFragment extends MviFragment<ListView, ListPresenter>
     @Inject
     TasksAdapter adapter;
 
+    @Inject
+    ViewCacheFactory cacheFactory;
+    private ViewCache cache;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_list, container, false);
+    }
+
+    @Override
+    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        cache = cacheFactory.create(view);
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -42,20 +54,7 @@ abstract class AbstractListFragment extends MviFragment<ListView, ListPresenter>
     @Override
     public void render(final ListViewState viewState) {
         adapter.replace(viewState.list.tasks);
-        ((TextView) cachingFindView(R.id.list_name))
+        cache.<TextView>findViewById(R.id.list_name)
                 .setText(viewState.list.name);
     }
-
-    final SparseArray<View> cache = new SparseArray<>();
-
-    private <T extends View> T cachingFindView(final int id) {
-        final T cached = (T) cache.get(id);
-        if (cached != null) {
-            return cached;
-        }
-        final T found = getView().findViewById(id);
-        cache.put(id, found);
-        return found;
-    }
-
 }

@@ -1,2 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.chmielowski.common" />
+<manifest package="net.chmielowski.todo.common" />

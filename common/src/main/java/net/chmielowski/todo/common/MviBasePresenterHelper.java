@@ -1,4 +1,4 @@
-package net.chmielowski.todo;
+package net.chmielowski.todo.common;
 
 import android.support.annotation.NonNull;
 

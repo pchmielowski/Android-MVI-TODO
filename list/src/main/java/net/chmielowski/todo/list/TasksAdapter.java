@@ -8,8 +8,14 @@ import net.chmielowski.todo.data.Task;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import javax.inject.Inject;
+
 class TasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final Collection<Task> tasks = new LinkedList<>();
+
+    @Inject
+    TasksAdapter() {
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {

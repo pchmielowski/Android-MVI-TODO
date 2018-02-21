@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
 
-import net.chmielowski.todo.MviBasePresenterHelper;
+import net.chmielowski.todo.common.MviBasePresenterHelper;
 import net.chmielowski.todo.data.IPersistence;
 
 import io.reactivex.Observable;
