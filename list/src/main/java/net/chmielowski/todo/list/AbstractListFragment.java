@@ -13,7 +13,8 @@ import com.hannesdorfmann.mosby3.mvi.MviFragment;
 import javax.inject.Inject;
 
 abstract class AbstractListFragment extends MviFragment<ListView, ListPresenter> implements ListView {
-    public static final String TASK_LIST_ID = "TASK_LIST_ID";
+    static final String TASK_LIST_ID = "TASK_LIST_ID";
+
     @Inject
     ListPresenterFactory presenterFactory;
 
