@@ -33,4 +33,9 @@ class MainViewState {
     public static MainViewState lists(List<Long> allLists) {
         return new MainViewState(allLists, true, false, false);
     }
+
+    @NonNull
+    public static MainViewState addList() {
+        return new MainViewState(Collections.emptyList(), false, true, true);
+    }
 }

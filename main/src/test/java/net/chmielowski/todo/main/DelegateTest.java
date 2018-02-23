@@ -2,7 +2,6 @@ package net.chmielowski.todo.main;
 
 import net.chmielowski.todo.data.IPersistence;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -65,7 +64,8 @@ public class DelegateTest {
 
         test.assertValues(
                 MainViewState.lists(Collections.emptyList()),
-                new MainViewState(Collections.emptyList(), false, true, true),
-                new MainViewState(Collections.singletonList(123L), true, false, false));
+                MainViewState.addList(),
+                MainViewState.lists(Collections.singletonList(123L)));
     }
+
 }
