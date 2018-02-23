@@ -6,12 +6,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.hannesdorfmann.mosby3.mvi.MviFragment;
 
-import net.chmielowski.todo.common.ViewCache;
-import net.chmielowski.todo.common.ViewCacheFactory;
+import net.chmielowski.todo.list.databinding.FragmentListBinding;
 
 import javax.inject.Inject;
 
@@ -25,22 +23,16 @@ abstract class AbstractListFragment extends MviFragment<ListView, ListPresenter>
     @Inject
     TasksAdapter adapter;
 
-    @Inject
-    ViewCacheFactory cacheFactory;
-    private ViewCache cache;
+    private FragmentListBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_list, container, false);
-    }
-
-    @Override
-    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        cache = cacheFactory.create(view);
+//        binding = FragmentListBinding.inflate(inflater,container,false);
+        binding = FragmentListBinding.inflate(inflater);
+        return binding.getRoot();
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -54,7 +46,6 @@ abstract class AbstractListFragment extends MviFragment<ListView, ListPresenter>
     @Override
     public void render(final ListViewState viewState) {
         adapter.replace(viewState.list.tasks);
-        cache.<TextView>findViewById(R.id.list_name)
-                .setText(viewState.list.name);
+        binding.listName.setText(viewState.list.name);
     }
 }
