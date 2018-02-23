@@ -45,6 +45,9 @@ dependencies {
     implementation 'com.google.auto.factory:auto-factory:1.0-beta5'
     annotationProcessor 'com.google.auto.factory:auto-factory:1.0-beta5'
 
+    compileOnly 'org.projectlombok:lombok:1.16.20'
+    annotationProcessor 'org.projectlombok:lombok:1.16.20'
+
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
     implementation 'com.hannesdorfmann.mosby3:mvi:3.1.0'
 }
