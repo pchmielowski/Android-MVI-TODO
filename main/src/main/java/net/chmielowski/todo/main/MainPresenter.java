@@ -7,31 +7,25 @@ import com.google.auto.factory.Provided;
 
 import net.chmielowski.todo.common.MviBasePresenterHelper;
 
-import java.util.function.Function;
-
 import io.reactivex.Observable;
 
 @AutoFactory
 final class MainPresenter extends MviBasePresenterHelper<MainView, MainViewState> {
     private final Delegate delegate;
 
-    MainPresenter(@Provided Delegate delegate) {
+    MainPresenter(final @Provided Delegate delegate) {
         this.delegate = delegate;
-    }
-
-    private <I> Observable<I> intent(final Function<MainView.Intents, Observable<I>> function) {
-        return super.intent(view -> function.apply(view.intents()));
     }
 
     @NonNull
     @Override
     protected Observable<MainViewState> intentStream() {
-        return delegate.createStream(intent(MainView.Intents::textChanged), intent(MainView.Intents::addNewClicked), this.intent(MainView.Intents::textChanged));
+        return delegate.createStream(intent(MainView::textChanged), intent(MainView::addNewClicked), this.intent(MainView::textChanged));
     }
 
     @Override
     protected ViewStateConsumer<MainView, MainViewState> renderer() {
-        return (view, viewState) -> view.renderer().render(viewState);
+        return MainView::render;
     }
 
 }

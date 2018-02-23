@@ -7,23 +7,14 @@ import com.hannesdorfmann.mosby3.mvp.MvpView;
 import io.reactivex.Observable;
 
 public interface MainView extends MvpView {
-    interface Intents {
-        @NonNull
-        Observable<NoValue> addNewClicked();
+    @NonNull
+    Observable<NoValue> addNewClicked();
 
-        @NonNull
-        Observable<String> textChanged();
+    @NonNull
+    Observable<String> textChanged();
 
-        @NonNull
-        Observable<NoValue> confirmAddingClicked();
+    @NonNull
+    Observable<NoValue> confirmAddingClicked();
 
-    }
-
-    interface Renderer {
-        void render(MainViewState viewState);
-    }
-
-    Intents intents();
-
-    Renderer renderer();
+    void render(MainViewState viewState);
 }
