@@ -1,8 +1,6 @@
 package net.chmielowski.todo.list;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import net.chmielowski.todo.data.Task;
@@ -14,7 +12,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-class TasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+import static android.view.LayoutInflater.from;
+import static net.chmielowski.todo.list.databinding.ItemTaskBinding.inflate;
+
+class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> {
     private final List<Task> tasks = new LinkedList<>();
 
     @Inject
@@ -22,16 +23,13 @@ class TasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        final ItemTaskBinding binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-//        ItemTaskBinding.inflate(LayoutInflater.from(parent.getContext()));
-        return new ViewHolder(binding);
+    public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+        return new ViewHolder(inflate(from(parent.getContext())));
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        ((ViewHolder) holder).binding.name.setText(tasks.get(position).name);
-        ((ViewHolder) holder).binding.done.setChecked(tasks.get(position).done);
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        holder.bind(tasks.get(position));
     }
 
     @Override
@@ -40,7 +38,6 @@ class TasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     void replace(final Collection<Task> tasks) {
-        Log.d("pchm", "TasksAdapter::replace " + tasks);
         // TODO: use DiffUtil
         this.tasks.clear();
         this.tasks.addAll(tasks);
@@ -53,6 +50,11 @@ class TasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ViewHolder(final ItemTaskBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+        }
+
+        public void bind(final Task task) {
+            binding.name.setText(task.name);
+            binding.done.setChecked(task.done);
         }
     }
 }

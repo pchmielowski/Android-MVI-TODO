@@ -31,7 +31,6 @@ abstract class AbstractListFragment extends MviFragment<ListView, ListPresenter>
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
-//        binding = FragmentListBinding.inflate(inflater,container,false);
         binding = FragmentListBinding.inflate(inflater);
         binding.tasksRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.tasksRecyclerView.setAdapter(adapter);
