@@ -20,7 +20,10 @@ final class MainPresenter extends MviBasePresenterHelper<MainView, MainViewState
     @NonNull
     @Override
     protected Observable<MainViewState> intentStream() {
-        return delegate.createStream(intent(MainView::textChanged), intent(MainView::addNewClicked), this.intent(MainView::textChanged));
+        return delegate.createStream(
+                intent(MainView::confirmAddingClicked),
+                intent(MainView::addNewClicked),
+                intent(MainView::textChanged));
     }
 
     @Override

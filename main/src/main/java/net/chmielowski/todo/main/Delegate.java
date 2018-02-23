@@ -17,16 +17,16 @@ class Delegate {
         this.persistence = persistence;
     }
 
-    Observable<MainViewState> createStream(final Observable<String> intent1,
-                                           final Observable<NoValue> intent2,
-                                           final Observable<String> intent3) {
-        intent1.withLatestFrom(intent3, (noValue, s) -> s)
-                .subscribe(this.persistence::addList);
+    Observable<MainViewState> createStream(final Observable<NoValue> confirmAddingList,
+                                           final Observable<NoValue> addNewList,
+                                           final Observable<String> newListName) {
+        confirmAddingList.withLatestFrom(newListName, (noValue, s) -> s)
+                .subscribe(persistence::addList);
 
-        final Observable<MainViewState> map = intent2
+        final Observable<MainViewState> map = addNewList
                 .map(__ -> new MainViewState(Collections.emptyList(), false, true, true));
 
-        final Observable<MainViewState> intent = this.persistence.observe()
+        final Observable<MainViewState> intent = persistence.observe()
                 .map(allLists -> new MainViewState(allLists, true, false, false))
                 .startWith(MainViewState.initial());
 

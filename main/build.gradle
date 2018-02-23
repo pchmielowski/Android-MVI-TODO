@@ -41,6 +41,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
     testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-core:2.15.0"
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
@@ -51,6 +52,9 @@ dependencies {
 
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
     implementation 'com.hannesdorfmann.mosby3:mvi:3.1.0'
+
+    compileOnly 'org.projectlombok:lombok:1.16.20'
+    annotationProcessor 'org.projectlombok:lombok:1.16.20'
 
     implementation project(path: ':data')
     implementation project(path: ':common')
