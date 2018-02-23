@@ -3,7 +3,9 @@ package net.chmielowski.todo.main;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 
 import com.hannesdorfmann.mosby3.mvi.MviActivity;
@@ -32,6 +34,11 @@ abstract class AbstractMainActivity extends MviActivity<MainView, MainPresenter>
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.listsPager.setAdapter(adapter);
+        binding.listsPager.setClipToPadding(false);
+        int dp = 16; // TODO: get from res
+        int paddingFactor = 2;
+        binding.listsPager.setPadding(dpToPx(dp * paddingFactor), 0, dpToPx(dp * paddingFactor), 0);
+        binding.listsPager.setPageMargin(dpToPx(dp));
     }
 
     @NonNull
@@ -71,5 +78,10 @@ abstract class AbstractMainActivity extends MviActivity<MainView, MainPresenter>
 
     private int toVisibility(final boolean asBoolean) {
         return asBoolean ? View.VISIBLE : View.GONE;
+    }
+
+    int dpToPx(int dp) {
+        return (int) TypedValue
+                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
     }
 }

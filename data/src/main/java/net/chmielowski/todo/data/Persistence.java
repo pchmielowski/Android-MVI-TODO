@@ -1,5 +1,6 @@
 package net.chmielowski.todo.data;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -18,7 +19,13 @@ class Persistence implements IPersistence {
 
     @Inject
     Persistence() {
-        lists = new LinkedList<>();
+        lists = new LinkedList<>(
+                Arrays.asList(
+                        new TaskList("First"),
+                        new TaskList("Second"),
+                        new TaskList("Third")
+                )
+        );
     }
 
 
@@ -34,7 +41,7 @@ class Persistence implements IPersistence {
     @Override
     public Observable<Collection<Long>> observe() {
         return subject
-                .startWith(Collections.<Long>emptyList());
+                .startWith(indexes());
     }
 
     private List<Long> indexes() {
