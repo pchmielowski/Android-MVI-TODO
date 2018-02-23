@@ -28,7 +28,7 @@ public enum Injector {
         mainComponent = null;
     }
 
-    void setAppComponent(AppComponent component) {
+    void setAppComponent(final AppComponent component) {
         this.appComponent = component;
     }
 }

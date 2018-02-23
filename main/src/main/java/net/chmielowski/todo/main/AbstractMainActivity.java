@@ -3,7 +3,6 @@ package net.chmielowski.todo.main;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -16,7 +15,8 @@ import net.chmielowski.todo.main.databinding.ActivityMainBinding;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
+
+import static android.util.TypedValue.COMPLEX_UNIT_DIP;
 
 abstract class AbstractMainActivity extends MviActivity<MainView, MainPresenter>
         implements MainView {
@@ -80,8 +80,8 @@ abstract class AbstractMainActivity extends MviActivity<MainView, MainPresenter>
         return asBoolean ? View.VISIBLE : View.GONE;
     }
 
-    int dpToPx(int dp) {
-        return (int) TypedValue
-                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
+    int dpToPx(final int dp) {
+        return (int) TypedValue.applyDimension(
+                COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
     }
 }

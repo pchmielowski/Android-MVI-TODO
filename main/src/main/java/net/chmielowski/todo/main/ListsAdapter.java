@@ -20,7 +20,7 @@ class ListsAdapter extends FragmentPagerAdapter {
     private final ListFragmentFactory fragmentFactory;
 
     @Inject
-    ListsAdapter(FragmentManager manager, final ListFragmentFactory factory) {
+    ListsAdapter(final FragmentManager manager, final ListFragmentFactory factory) {
         super(manager);
         this.fragmentFactory = factory;
     }

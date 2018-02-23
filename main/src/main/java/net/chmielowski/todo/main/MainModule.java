@@ -9,7 +9,7 @@ import dagger.Provides;
 @Module
 abstract class MainModule {
     @Provides
-    static FragmentManager provideFragmentManager(AppCompatActivity activity) {
+    static FragmentManager provideFragmentManager(final AppCompatActivity activity) {
         return activity.getSupportFragmentManager();
     }
 }

@@ -27,17 +27,13 @@ class MainViewState {
         this.enterNameVisible = enterNameVisible;
     }
 
-    static MainViewState initial() {
-        return new MainViewState(Collections.emptyList(), true, false, false);
-    }
-
     @NonNull
-    public static MainViewState lists(List<Long> allLists) {
+    static MainViewState lists(final List<Long> allLists) {
         return new MainViewState(allLists, true, false, false);
     }
 
     @NonNull
-    public static MainViewState addList() {
+    static MainViewState addList() {
         return new MainViewState(Collections.emptyList(), false, true, true);
     }
 }

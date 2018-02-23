@@ -9,7 +9,6 @@ import java.util.Collections;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
 
 class Delegate {
 
