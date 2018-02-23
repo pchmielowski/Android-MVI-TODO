@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import net.chmielowski.todo.data.Task;
-import net.chmielowski.todo.list.databinding.ItemTaskBinding;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -15,7 +14,7 @@ import javax.inject.Inject;
 import static android.view.LayoutInflater.from;
 import static net.chmielowski.todo.list.databinding.ItemTaskBinding.inflate;
 
-class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> {
+class TasksAdapter extends RecyclerView.Adapter<ViewHolder> {
     private final List<Task> tasks = new LinkedList<>();
 
     @Inject
@@ -43,18 +42,5 @@ class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> {
         this.tasks.addAll(tasks);
         notifyDataSetChanged();
     }
-
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        final ItemTaskBinding binding;
-
-        ViewHolder(final ItemTaskBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
-        }
-
-        public void bind(final Task task) {
-            binding.name.setText(task.name);
-            binding.done.setChecked(task.done);
-        }
-    }
 }
+
