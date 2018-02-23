@@ -43,7 +43,6 @@ public class DelegateTest {
         test.assertValues(MainViewState.lists(Collections.singletonList(123L)));
     }
 
-    @Ignore
     @Test
     public void addingNewList() throws Exception {
         final Subject<NoValue> confirmAddingList = PublishSubject.create();
@@ -58,8 +57,15 @@ public class DelegateTest {
                 .createStream(confirmAddingList, addNewList, newListName)
                 .test();
 
+        persistenceSubject.onNext(Collections.emptyList());
+        addNewList.onNext(NoValue.INSTANCE);
+        newListName.onNext("New list name");
+        confirmAddingList.onNext(NoValue.INSTANCE);
+        persistenceSubject.onNext(Collections.singletonList(123L));
 
-        test.assertValues(MainViewState.lists(Collections.emptyList()),
-                MainViewState.lists(Collections.singletonList(123L)));
+        test.assertValues(
+                MainViewState.lists(Collections.emptyList()),
+                new MainViewState(Collections.emptyList(), false, true, true),
+                new MainViewState(Collections.singletonList(123L), true, false, false));
     }
 }
