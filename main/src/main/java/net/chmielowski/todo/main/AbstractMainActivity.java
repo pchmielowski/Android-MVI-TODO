@@ -3,6 +3,7 @@ package net.chmielowski.todo.main;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 
 import com.hannesdorfmann.mosby3.mvi.MviActivity;
@@ -13,6 +14,7 @@ import net.chmielowski.todo.main.databinding.ActivityMainBinding;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 abstract class AbstractMainActivity extends MviActivity<MainView, MainPresenter>
         implements MainView {
@@ -46,12 +48,14 @@ abstract class AbstractMainActivity extends MviActivity<MainView, MainPresenter>
     @NonNull
     public Observable<String> textChanged() {
         return RxTextView.textChanges(binding.newListName)
-                .map(CharSequence::toString);
+                .map(CharSequence::toString)
+                .doOnNext(v -> Log.d("pchm", "AbstractMainActivity::textChanged " + v));
     }
 
     @NonNull
     public Observable<NoValue> confirmAddingClicked() {
-        return RxUtils.clicks(binding.confirmAdding);
+        return RxUtils.clicks(binding.confirmAdding)
+                .doOnNext(noValue -> Log.d("pchm", "confirmAddingClicked"));
     }
 
 

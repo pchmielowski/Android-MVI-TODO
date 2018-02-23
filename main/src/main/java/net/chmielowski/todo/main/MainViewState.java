@@ -8,7 +8,9 @@ import java.util.Collections;
 import java.util.List;
 
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+@ToString
 @EqualsAndHashCode
 class MainViewState {
     final boolean addNewVisible;
