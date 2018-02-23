@@ -27,8 +27,7 @@ class Delegate {
                 .map(__ -> new MainViewState(Collections.emptyList(), false, true, true));
 
         final Observable<MainViewState> intent = persistence.observe()
-                .map(allLists -> new MainViewState(allLists, true, false, false))
-                .startWith(MainViewState.initial());
+                .map(allLists -> new MainViewState(allLists, true, false, false));
 
         return Observable.merge(map, intent);
     }

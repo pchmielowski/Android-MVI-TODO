@@ -2,6 +2,7 @@ package net.chmielowski.todo.main;
 
 import net.chmielowski.todo.data.IPersistence;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -19,24 +20,9 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class DelegateTest {
 
+    @SuppressWarnings("WeakerAccess")
     @Mock
     IPersistence persistence;
-
-    @Test
-    public void initialValue() throws Exception {
-        final Subject<NoValue> confirmAddingList = PublishSubject.create();
-        final Subject<NoValue> addNewList = PublishSubject.create();
-        final Subject<String> newListName = PublishSubject.create();
-
-        final Subject<Collection<Long>> persistenceSubject = PublishSubject.create();
-        when(persistence.observe())
-                .thenReturn(persistenceSubject);
-
-        new Delegate(persistence)
-                .createStream(confirmAddingList, addNewList, newListName)
-                .test()
-                .assertValue(MainViewState.lists(Collections.emptyList()));
-    }
 
     @Test
     public void valueFromPersistence() throws Exception {
@@ -53,6 +39,25 @@ public class DelegateTest {
                 .test();
 
         persistenceSubject.onNext(Collections.singletonList(123L));
+
+        test.assertValues(MainViewState.lists(Collections.singletonList(123L)));
+    }
+
+    @Ignore
+    @Test
+    public void addingNewList() throws Exception {
+        final Subject<NoValue> confirmAddingList = PublishSubject.create();
+        final Subject<NoValue> addNewList = PublishSubject.create();
+        final Subject<String> newListName = PublishSubject.create();
+
+        final Subject<Collection<Long>> persistenceSubject = PublishSubject.create();
+        when(persistence.observe())
+                .thenReturn(persistenceSubject);
+
+        final TestObserver<MainViewState> test = new Delegate(persistence)
+                .createStream(confirmAddingList, addNewList, newListName)
+                .test();
+
 
         test.assertValues(MainViewState.lists(Collections.emptyList()),
                 MainViewState.lists(Collections.singletonList(123L)));
