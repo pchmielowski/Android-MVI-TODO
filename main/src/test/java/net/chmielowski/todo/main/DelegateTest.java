@@ -10,6 +10,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Collection;
 import java.util.Collections;
 
+import io.reactivex.observers.TestObserver;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
@@ -34,6 +35,26 @@ public class DelegateTest {
         new Delegate(persistence)
                 .createStream(confirmAddingList, addNewList, newListName)
                 .test()
-                .assertValue(new MainViewState(Collections.emptyList(), true, false, false));
+                .assertValue(MainViewState.lists(Collections.emptyList()));
+    }
+
+    @Test
+    public void valueFromPersistence() throws Exception {
+        final Subject<NoValue> confirmAddingList = PublishSubject.create();
+        final Subject<NoValue> addNewList = PublishSubject.create();
+        final Subject<String> newListName = PublishSubject.create();
+
+        final Subject<Collection<Long>> persistenceSubject = PublishSubject.create();
+        when(persistence.observe())
+                .thenReturn(persistenceSubject);
+
+        final TestObserver<MainViewState> test = new Delegate(persistence)
+                .createStream(confirmAddingList, addNewList, newListName)
+                .test();
+
+        persistenceSubject.onNext(Collections.singletonList(123L));
+
+        test.assertValues(MainViewState.lists(Collections.emptyList()),
+                MainViewState.lists(Collections.singletonList(123L)));
     }
 }

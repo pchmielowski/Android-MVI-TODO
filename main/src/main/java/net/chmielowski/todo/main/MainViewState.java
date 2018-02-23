@@ -1,5 +1,7 @@
 package net.chmielowski.todo.main;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -27,4 +29,8 @@ class MainViewState {
         return new MainViewState(Collections.emptyList(), true, false, false);
     }
 
+    @NonNull
+    public static MainViewState lists(List<Long> allLists) {
+        return new MainViewState(allLists, true, false, false);
+    }
 }
